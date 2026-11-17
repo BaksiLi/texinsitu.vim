@@ -81,7 +81,9 @@ jobs:
         shell: pwsh
         run: |
           choco install vim --yes --no-progress
-          $vim = Get-ChildItem "$env:ProgramFiles/Vim" -Filter vim.exe -Recurse |
+          if ($LASTEXITCODE -ne 0) { throw "Chocolatey failed with exit code $LASTEXITCODE" }
+          $installDir = Get-Content -LiteralPath "$env:ChocolateyInstall/lib/vim/tools/installDir"
+          $vim = Get-ChildItem -LiteralPath "$installDir/vim" -Filter vim.exe -File -Recurse |
             Select-Object -First 1 -ExpandProperty FullName
           if (!$vim) { throw 'Vim was not installed' }
           "TEXINSITU_VIM=$vim" >> $env:GITHUB_ENV
