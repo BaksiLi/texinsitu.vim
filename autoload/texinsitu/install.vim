@@ -145,11 +145,12 @@ function! texinsitu#install#run(...) abort
     endif
     let l:destination = l:directory.'/'.l:name
     if has('win32')
+      " PowerShell coerces $null to ""; File.Replace needs a real null backup path.
       call s:PowerShell([
             \ '$source = '.s:PSQuote(l:candidate),
             \ '$destination = '.s:PSQuote(l:destination),
             \ 'if ([IO.File]::Exists($destination)) {',
-            \ '  [IO.File]::Replace($source, $destination, $null)',
+            \ '  [IO.File]::Replace($source, $destination, [NullString]::Value)',
             \ '} else { [IO.File]::Move($source, $destination) }'], l:stage)
     elseif rename(l:candidate, l:destination)
       throw 'cannot replace the installed kernel'
