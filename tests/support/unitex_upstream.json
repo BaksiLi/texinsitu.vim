@@ -1,0 +1,132 @@
+{
+ "upstream": "https://github.com/kokic/UniTeX",
+ "commit": "6e6294bdfb6101eb6e3dc440e1b9cb5a1a1efdc0",
+ "note": "Assertions from test-runner.js and math examples from README.md. \"ours\" is the expected output, with scripts marked _[..] and ^[..]; \"policy\" says why it differs on purpose.",
+ "license": "MIT License\n\nCopyright (c) 2023 by kokic <kokicplus@gmail.com>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n",
+ "cases": [
+  {
+   "source": "test-runner.js:15",
+   "tex": "a_0a_1a_2a_3a_4a_5a_6a_7a_8a_9",
+   "upstream": "a₀a₁a₂a₃a₄a₅a₆a₇a₈a₉",
+   "ours": "a₀a₁a₂a₃a₄a₅a₆a₇a₈a₉"
+  },
+  {
+   "source": "test-runner.js:21",
+   "tex": "p^0p^1p^2p^3p^4p^5p^6p^7p^8p^9",
+   "upstream": "p⁰p¹p²p³p⁴p⁵p⁶p⁷p⁸p⁹",
+   "ours": "p⁰p¹p²p³p⁴p⁵p⁶p⁷p⁸p⁹"
+  },
+  {
+   "source": "test-runner.js:28",
+   "tex": "\\N\\Z\\Q\\R\\C\\A\\F",
+   "upstream": "ℕℤℚℝℂ𝔸𝔽",
+   "ours": "ℕℤℚℝℂ𝔸𝔽"
+  },
+  {
+   "source": "test-runner.js:35",
+   "tex": "\\text{Gal}(\\bar a/a) \\rarr \\text{Aut}(E[m])",
+   "upstream": "Gal(ā/a) → Aut(E[m])",
+   "ours": "Gal(ā/a)→Aut(E[m])"
+  },
+  {
+   "source": "test-runner.js:41",
+   "tex": "\\begin{pmatrix}\n       \\cos\\theta & -\\sin\\theta \\\\\n       \\sin\\theta & \\cos\\theta \n       \\end{pmatrix}",
+   "upstream": "((cosθ -sinθ)(sinθ cosθ))",
+   "ours": [
+    "⎛cos θ −sin θ⎞",
+    "⎝sin θ  cos θ⎠"
+   ],
+   "policy": "Display matrices are drawn in two dimensions."
+  },
+  {
+   "source": "test-runner.js:52",
+   "tex": "\\frac12 + \\frac3a - \\frac{b}5",
+   "upstream": "1/2 + 3/a - b/5",
+   "ours": "1/2+3/a−b/5",
+   "policy": "The minus sign is U+2212, as UTR #25 asks, not the hyphen-minus."
+  },
+  {
+   "source": "test-runner.js:59",
+   "tex": "$abc \\in \\mathscr{W}$",
+   "upstream": "𝑎𝑏𝑐 ∈ 𝒲",
+   "ours": "abc∈𝓦",
+   "policy": "Letters stay upright; \\mathscr is bold script, distinct from \\mathcal."
+  },
+  {
+   "source": "test-runner.js:65",
+   "tex": "$$\\dfrac12\\times\\frac{1}p$$",
+   "upstream": " 1     1 \n--- × ---\n 2     p ",
+   "ours": [
+    "1 1",
+    "─×─",
+    "2 p"
+   ],
+   "policy": "Display fractions use a rule as wide as their operands."
+  },
+  {
+   "source": "test-runner.js:72",
+   "tex": "$$\\frac{a}b \\cdot \\frac{b}a \\; = \\; 1$$",
+   "upstream": " a     b       \n--- ⋅ ---  =  1\n b     a       ",
+   "ours": [
+    "a b",
+    "─⋅─ = 1",
+    "b a"
+   ],
+   "policy": "Display fractions use a rule as wide as their operands."
+  },
+  {
+   "source": "test-runner.js:88",
+   "tex": "$$\\dfrac{4}{\\pi}\\;=\\;1+\\dfrac{1^2}{2+\\dfrac{3^2}{2+\\dfrac{5^2}{2+\\ddots}}}$$",
+   "upstream": " 4                  1²         \n---  =  1 + -------------------\n π                    3²       \n             2 + ------------- \n                        5²     \n                  2 + -------  \n                       2 + ⋱   ",
+   "ours": [
+    "4        1²",
+    "─ = 1+───────",
+    "π         3²",
+    "      2+─────",
+    "           5²",
+    "        2+───",
+    "          2+⋱"
+   ],
+   "policy": "Display fractions use a rule as wide as their operands."
+  },
+  {
+   "source": "test-runner.js:97",
+   "tex": "\\KaTeX \\bTeX \\Lean \\UniTeX",
+   "upstream": "KᴬTᴇX 🍌TᴇX L∃∀N UⁿᵢTᴇX",
+   "ours": "KaTeXbTeXLeanUniTeX",
+   "policy": "Logo banners are prose decoration; unknown commands show their names."
+  },
+  {
+   "source": "test-runner.js:103",
+   "tex": "\\overset{\\Delta}{=} \\overset{def}{=} \\overset{\\star}{=}",
+   "upstream": "≜ ≝ ≛",
+   "ours": "≜≝≛"
+  },
+  {
+   "source": "README.md:20",
+   "tex": "a^2 + b^2 = c^2",
+   "upstream": "a² + b² = c²",
+   "ours": "a²+b²=c²"
+  },
+  {
+   "source": "README.md:24",
+   "tex": "\\ell(D) - \\ell(K-D) = \\deg D - g + 1",
+   "upstream": "ℓ(D) - ℓ(K-D) = deg D - g + 1",
+   "ours": "ℓ(D)−ℓ(K−D)=deg D−g+1",
+   "policy": "The minus sign is U+2212, as UTR #25 asks, not the hyphen-minus."
+  },
+  {
+   "source": "README.md:28",
+   "tex": "E[m] \\simeq \\Z/m\\Z \\times \\Z/m\\Z, \\text{Gal}(\\bar a/a) \\rarr \\text{Aut}(E[m])",
+   "upstream": "E[m] ≃ ℤ/mℤ × ℤ/mℤ, Gal(ā/a) → Aut(E[m])",
+   "ours": "E[m]≃ℤ/mℤ×ℤ/mℤ,Gal(ā/a)→Aut(E[m])"
+  },
+  {
+   "source": "README.md:56",
+   "tex": "J = [\\frac{\\partial f_1}{\\partial x_1} \\cdots \\frac{\\partial f_n}{\\partial x_n}]",
+   "upstream": "𝐽 = [(∂ 𝑓₁)/(∂ 𝑥₁) ⋯ (∂ 𝑓ₙ)/(∂ 𝑥ₙ)]",
+   "ours": "J=[(∂f₁)/(∂x₁)⋯(∂f_[n])/(∂x_[n])]",
+   "policy": "Letters stay upright; letter subscripts keep Vim script highlighting."
+  }
+ ]
+}

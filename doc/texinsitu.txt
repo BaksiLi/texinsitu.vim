@@ -1,0 +1,55 @@
+*texinsitu.txt*	TeXinsitu: TeX math rendered in place
+
+INTRODUCTION					*texinsitu*
+
+Formulas in TeX, Markdown and Cogitatum buffers are rendered at their source
+position. Move the cursor into a formula to see and edit its TeX; move out to
+see the rendering again. The buffer always holds source.
+
+Closing punctuation wraps with inline math. A formula stays source when the
+combined source and rendering cannot fit, or unequal views need different
+wrap positions.
+
+Requires Vim 9.0.0121+ with |+textprop|, |+conceal| and |+job|, and a kernel built
+with `cargo build --release` in the plugin's kernel/ directory.
+Older Vim versions leave source editing unchanged. Neovim is not supported.
+
+COMMANDS					*texinsitu-commands*
+
+:TexInsituToggle				*:TexInsituToggle*
+	Switch the current buffer between rendered formulas and raw source.
+	No key mappings are installed.
+
+OPTIONS						*texinsitu-options*
+
+*g:texinsitu_filetypes*
+	Filetypes with rendered formulas.
+	Default: ['tex', 'markdown', 'cogitatum']
+
+*g:texinsitu_enabled* *b:texinsitu_enabled*
+	Set to 0 to turn rendering off globally or for one buffer. Default: 1
+
+Match conceal needs 'conceallevel' 2. The plugin loads the active buffer's
+syntax with syntax conceal defaults off, so the entered formula shows source.
+Explicit |g:tex_conceal|, g:vimtex_syntax_conceal_disable and
+g:markdown_syntax_conceal settings take precedence; their global values stay
+unchanged. Toggling off restores the window's 'conceallevel' and
+'concealcursor' and reloads the buffer's normal syntax.
+
+HIGHLIGHTS					*texinsitu-highlights*
+
+TexInsitu	Rendered formulas. Linked to |hl-Special| by default.
+TexInsituSub	Letter subscripts: TexInsitu colour, italic, underlined.
+TexInsituSup	Letter superscripts: TexInsitu colour, italic; bold too in a
+		terminal, where italic may be missing.
+
+FUNCTIONS					*texinsitu-functions*
+
+texinsitu#enabled()				*texinsitu#enabled()*
+	Whether formulas render in the current buffer.
+
+texinsitu#relayout()				*texinsitu#relayout()*
+	Lay out every buffer again. Changing 'ambiwidth' does this itself;
+	call it after |setcellwidths()|, which has no autocommand.
+
+ vim:tw=78:ts=8:noet:ft=help:norl:

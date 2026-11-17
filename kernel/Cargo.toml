@@ -1,0 +1,18 @@
+[package]
+name = "texinsitu"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Find TeX math in TeX and Markdown sources and lay it out as text cells"
+repository = "https://github.com/BaksiLi/texinsitu.vim"
+publish = false
+
+[dependencies]
+serde = { version = "1", features = ["derive", "rc"] }
+serde_json = "1"
+unicode-normalization = "0.1"
+unicode-width = "0.2"
+
+[profile.release]
+lto = true
+codegen-units = 1
