@@ -5,10 +5,10 @@
 TeXinsitu renders formulas inside your TeX, Markdown and Cogitatum source in
 Vim. Move into a formula to edit its TeX; move out to read it again.
 
-![Vim: inline math and display equations render in place; entering a formula reveals its source while neighbouring formulas stay rendered.](doc/demo.gif)
+![TeX source beside its actual Vim reading view: inline scripts, Greek and mathematical alphabets, units, a fraction with summation, and a two-dimensional matrix.](doc/demo.png)
 
-*Terminal Vim screen cells and styles, captured with Menlo. [Static view](doc/demo.png)
-· [Open the example](examples/demo.md).*
+*Source and reading views of [the same example](examples/demo.md), captured
+from terminal Vim with Menlo. The comparison uses Vim's actual cells and styles.*
 
 - **Stay in the paragraph.** Inline math lives beside your prose. Fractions,
   roots, sums and matrices get two-dimensional layouts in display equations.
@@ -17,6 +17,15 @@ Vim. Move into a formula to edit its TeX; move out to read it again.
 - **Keep the source.** Yank, search, undo and save operate on the original TeX.
 - **Keep it quick.** One resident Rust process caches formulas; moving the
   cursor repaints only the affected formulas.
+
+<details>
+<summary>Watch the cursor reveal a formula and a whole equation block</summary>
+
+![Moving into an inline formula reveals only that formula; entering a display equation reveals the whole block. Nearby formulas stay rendered.](doc/demo.gif)
+
+The source stays in its original position. Move out to render it again.
+
+</details>
 
 ## Install
 
@@ -217,4 +226,8 @@ for early layout inspiration.
 
 ## Related
 
-TeXinsitu is one of a small family of Vim plugins for writing: [MdToc.vim](https://github.com/BaksiLi/mdtoc.vim), [WebPreview.vim](https://github.com/BaksiLi/webpreview.vim) and [TeXinsitu.vim](https://github.com/BaksiLi/texinsitu.vim). Each works on its own. They were developed together in [Onesimus Vim](https://github.com/BaksiLi/Onesimus), a Vim distribution for scientific writing, which shows them combined.
+TeXinsitu is one of a small family of Vim plugins for writing, alongside
+[MdToc.vim](https://github.com/BaksiLi/mdtoc.vim) and
+[WebPreview.vim](https://github.com/BaksiLi/webpreview.vim). Each works on its
+own. They were developed together in [Onesimus Vim](https://github.com/BaksiLi/Onesimus),
+a Vim distribution for scientific writing.
