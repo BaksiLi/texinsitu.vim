@@ -10,7 +10,7 @@ let s:kernel = s:root.'/kernel/target/release/texinsitu'.(has('win32') ? '.exe' 
 function! texinsitu#enabled() abort
   if !executable(s:kernel) && !exists('s:unbuilt')
     let s:unbuilt = 1
-    echomsg 'TeXinsitu: run `cargo build --release` in '.s:root.'/kernel'
+    echomsg 'TeXinsitu: run :TexInsituInstall to install the kernel; see :help texinsitu-install'
   endif
   return get(b:, 'texinsitu_enabled', get(g:, 'texinsitu_enabled', 1))
         \ && has('conceal') && has('patch-9.0.0121') && has('textprop')

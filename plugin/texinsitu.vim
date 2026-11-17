@@ -12,6 +12,7 @@ endif
 let g:texinsitu_filetypes = get(g:, 'texinsitu_filetypes', ['tex', 'markdown', 'cogitatum'])
 
 command! -bar TexInsituToggle call texinsitu#toggle()
+command! -bar TexInsituInstall call texinsitu#install#run()
 
 function! s:Highlights() abort
   highlight default link TexInsitu Special

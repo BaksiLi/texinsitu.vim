@@ -7,6 +7,7 @@ vim_bin=${TEXINSITU_VIM:-vim}
 cargo test --quiet --release --manifest-path "$repo/kernel/Cargo.toml"
 cargo build --quiet --release --manifest-path "$repo/kernel/Cargo.toml"
 python3 "$repo/tests/renderer.py"
+python3 "$repo/tests/installer.py"
 
 work=$(mktemp -d)
 trap 'rm -f "$work/result" "$work/log"; rmdir "$work"' EXIT

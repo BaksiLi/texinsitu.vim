@@ -3,6 +3,11 @@
 This inventory records the sources of bundled symbol data, width data and test
 cases. The files in `LICENSES/` are verbatim copies of upstream notices.
 
+Prebuilt kernel archives also include the Rust dependencies' original
+`LICENSE*`, `COPYING*` and `COPYRIGHT*` notices under
+`LICENSES/rust/<crate>-<version>/`. Packaging collects these from the locked
+Cargo dependency metadata and preserves both notices for dual-licensed crates.
+
 **unicode-math — symbol table.** `kernel/src/symbols.tsv` contains a generated
 extract of `unicode-math-table.tex` from unicode-math **0.8r (2023-08-13)**,
 tag `v0.8r`, commit `936812ed7407cd2b2f06bf4c97f12275a6b2e781`.

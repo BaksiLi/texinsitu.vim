@@ -10,11 +10,48 @@ Closing punctuation wraps with inline math. A formula stays source when the
 combined source and rendering cannot fit, or unequal views need different
 wrap positions.
 
-Requires Vim 9.0.0121+ with |+textprop|, |+conceal| and |+job|, and a kernel built
-with `cargo build --release` in the plugin's kernel/ directory.
+Requires Vim 9.0.0121+ with |+textprop|, |+conceal| and |+job|, and the kernel
+installed as described in |texinsitu-install|.
 Older Vim versions leave source editing unchanged. Neovim is not supported.
 
+INSTALLATION					*texinsitu-install*
+
+With vim-plug: >
+	Plug 'BaksiLi/texinsitu.vim', {'do': ':TexInsituInstall'}
+<
+For other plugin managers, install the plugin and then run: >
+	:TexInsituInstall
+<
+The installer downloads the release matching kernel/Cargo.toml, verifies its
+SHA-256 checksum against that release's SHA256SUMS, and installs the executable
+in kernel/target/release/texinsitu (texinsitu.exe on Windows). Downloads and
+extraction are staged beside the destination; a failed download, checksum or
+extraction leaves the existing executable in place. Opening a buffer never
+downloads or builds anything. A first installation activates the current
+supported buffer immediately. Restart Vim after updating a running kernel;
+the resident renderer keeps running its previous executable until then.
+
+Prebuilt kernels support macOS 11+ on Apple Silicon and Intel, Linux on arm64
+and x86_64 (static musl builds), and Windows x86_64. macOS needs curl, tar and
+shasum; Linux needs curl, tar and sha256sum. Windows uses Windows PowerShell
+5.1 or later. Rust and Python are not needed to install a prebuilt kernel.
+
+Contributors, unsupported platforms and unreleased checkouts can explicitly
+build the checked-out source with Rust and Cargo installed: >
+	:call texinsitu#install#run('source')
+<
+Use the same call in vim-plug's do hook to always build from source. The manual
+equivalent, from the plugin directory, is: >
+	cargo build --release --locked --manifest-path kernel/Cargo.toml
+<
+An unreleased version has no matching download: use a released plugin version,
+or request a source build. The installer never falls back to another version.
+
 COMMANDS					*texinsitu-commands*
+
+:TexInsituInstall				*:TexInsituInstall*
+	Download and install this checkout's matching prebuilt kernel.
+	See |texinsitu-install| for requirements and source builds.
 
 :TexInsituToggle				*:TexInsituToggle*
 	Switch the current buffer between rendered formulas and raw source.
@@ -44,6 +81,12 @@ TexInsituSup	Letter superscripts: TexInsitu colour, italic; bold too in a
 		terminal, where italic may be missing.
 
 FUNCTIONS					*texinsitu-functions*
+
+texinsitu#install#run([{mode}])			*texinsitu#install#run()*
+	Install the prebuilt kernel for this checkout's version. Optional mode
+	'source' explicitly builds from source instead. Returns 1 on success;
+	throws an error on failure so plugin managers report a failed hook.
+	See |texinsitu-install|.
 
 texinsitu#enabled()				*texinsitu#enabled()*
 	Whether formulas render in the current buffer.
