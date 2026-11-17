@@ -258,8 +258,8 @@ class InstallerTest(unittest.TestCase):
         )
         self.assertEqual(self.destination.read_bytes(), PAYLOAD)
         arguments = json.loads(log.read_text())
-        self.assertEqual(arguments[:5], ["build", "--release", "--locked", "--manifest-path",
-                                        (self.repo / "kernel/Cargo.toml").as_posix()])
+        self.assertEqual(arguments[:4], ["build", "--release", "--locked", "--manifest-path"])
+        self.assertEqual(Path(arguments[4]), self.repo / "kernel/Cargo.toml")
         self.assertEqual(arguments[5], "--target-dir")
         self.assertEqual(Path(arguments[6]).parent, self.destination.parent)
 
